@@ -1,25 +1,21 @@
 {
-  "name": "LocalizaCEP",
   "short_name": "LocalizaCEP",
-  "description": "Aplicativo para consultar endereços brasileiros por CEP.",
-  "start_url": "./",
-  "scope": "./",
-  "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#ffffff",
-  "theme_color": "#06B6D4",
+  "name": "LocalizaCEP - Consulta de Endereço",
   "icons": [
     {
-      "src": "./icons/icon-192.png",
-      "sizes": "192x192",
+      "src": "icone-192.png",
       "type": "image/png",
-      "purpose": "any"
+      "sizes": "192x192"
     },
     {
-      "src": "./icons/icon-512.png",
-      "sizes": "512x512",
+      "src": "icone-512.png",
       "type": "image/png",
-      "purpose": "any"
+      "sizes": "512x512"
     }
-  ]
+  ],
+  "start_url": "/index.html",
+  "background_color": "#FFFFFF",
+  "theme_color": "#000000",
+  "display": "standalone",
+  "orientation": "portrait"
 }
