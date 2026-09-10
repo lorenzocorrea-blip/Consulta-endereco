@@ -1,37 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <link rel="manifest" href="manifest.json">
+
+    <meta name="theme-color" content="#06B6D4">
+
+    <title>LocalizaCEP</title>
 </head>
+
 <body>
 
-<form id="formConsulta"> 
-  <label for="cep">CEP</label> 
-  <input id="cep" type="text" inputmode="numeric" 
-         maxlength="9" placeholder="01001-000" required> 
-  <label for="cidade">Cidade</label> 
-  <input id="cidade" type="text" 
-         placeholder="São Paulo" required> 
-  <button type="submit">Consultar Endereço</button> 
-</form> 
-<p id="mensagem" role="status" aria-live="polite"></p> 
-<script src="index.js"></script>
+    <!-- Botão para instalar o aplicativo -->
+    <button id="btnInstalar" hidden>
+        Instalar APK
+    </button>
 
-<script>
-    if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("./sw.js")
-            .then(() => {
-                console.log("Service Worker registrado!");
-            })
-            .catch((erro) => {
-                console.error("Erro ao registrar Service Worker:", erro);
-            });
-    }
-</script>
+    <form id="formConsulta">
 
-    
+        <label for="cep">CEP</label>
+
+        <input
+            id="cep"
+            type="text"
+            inputmode="numeric"
+            maxlength="9"
+            placeholder="01001-000"
+            required
+        >
+
+        <label for="cidade">Cidade</label>
+
+        <input
+            id="cidade"
+            type="text"
+            placeholder="São Paulo"
+            required
+        >
+
+        <button type="submit">
+            Consultar Endereço
+        </button>
+
+    </form>
+
+    <p id="mensagem" role="status" aria-live="polite"></p>
+
+
+    <!-- JavaScript principal -->
+    <script src="index.js"></script>
+
+
+    <!-- Service Worker -->
+    <script>
+        if ("serviceWorker" in navigator) {
+
+            navigator.serviceWorker.register("./sw.js")
+                .then(() => {
+                    console.log("Service Worker registrado!");
+                })
+                .catch((erro) => {
+                    console.error(
+                        "Erro ao registrar Service Worker:",
+                        erro
+                    );
+                });
+
+        }
+    </script>
+
 </body>
+
 </html>
