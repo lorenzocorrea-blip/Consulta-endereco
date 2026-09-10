@@ -12,13 +12,8 @@
         name="theme-color"
         content="#06B6D4">
 
-    <link
-        rel="stylesheet"
-        href="style.css">
-
-    <link
-        rel="manifest"
-        href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
 
     <title>LocalizaCEP</title>
 </head>
@@ -27,55 +22,65 @@
 
     <main>
 
-        <h1>Consulta de Endereço por CEP</h1>
+        <section>
 
-        <form id="formConsulta">
+            <h2>
+                Consulta de <span>Endereço</span>
+            </h2>
 
-            <label for="cep">
-                CEP
-            </label>
+            <p>
+                Consulte um endereço brasileiro informando
+                o CEP e a cidade.
+            </p>
 
-            <input
-                id="cep"
-                type="text"
-                inputmode="numeric"
-                maxlength="9"
-                placeholder="01001-000"
-                autocomplete="postal-code"
-                required
-            >
+            <form id="formConsulta">
 
-            <label for="cidade">
-                Cidade
-            </label>
+                <label for="cep">
+                    CEP
+                </label>
 
-            <input
-                id="cidade"
-                type="text"
-                placeholder="São Paulo"
-                autocomplete="address-level2"
-                required
-            >
+                <input
+                    id="cep"
+                    type="text"
+                    inputmode="numeric"
+                    maxlength="9"
+                    placeholder="01001-000"
+                    autocomplete="postal-code"
+                    required
+                >
 
-            <button type="submit">
-                Consultar Endereço
+                <label for="cidade">
+                    Cidade
+                </label>
+
+                <input
+                    id="cidade"
+                    type="text"
+                    placeholder="São Paulo"
+                    autocomplete="address-level2"
+                    required
+                >
+
+                <button type="submit">
+                    Consultar Endereço
+                </button>
+
+            </form>
+
+            <p
+                id="mensagem"
+                role="status"
+                aria-live="polite">
+            </p>
+
+            <!-- BOTÃO DE INSTALAÇÃO -->
+            <button
+                id="btnInstalar"
+                type="button">
+                Instalar APK
             </button>
 
-        </form>
-
-        <!-- Mensagens de validação -->
-        <p
-            id="mensagem"
-            role="status"
-            aria-live="polite">
-        </p>
-
-        <!-- Instalação do aplicativo -->
-        <button
-            id="btnInstalar"
-            type="button">
-            Instalar APK
-        </button>
+        </section>
 
     </main>
 
@@ -85,7 +90,6 @@
 
     <script>
 
-        // Registra o Service Worker
         if ("serviceWorker" in navigator) {
 
             window.addEventListener("load", () => {
