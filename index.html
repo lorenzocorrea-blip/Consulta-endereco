@@ -1,115 +1,104 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color"
-          content="#06B6D4">
+    <meta
+        name="theme-color"
+        content="#06B6D4">
 
-    <link rel="stylesheet"
-          href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css">
 
-    <link rel="manifest"
-          href="manifest.json">
+    <link
+        rel="manifest"
+        href="manifest.json">
 
     <title>LocalizaCEP</title>
 </head>
 
 <body>
 
-    <!-- =====================================
-         BOTÃO DE INSTALAÇÃO
-    ====================================== -->
+    <main>
 
-    <button id="btnInstalar" type="button">
-        Instalar APK
-    </button>
+        <h1>Consulta de Endereço por CEP</h1>
 
+        <form id="formConsulta">
 
-    <!-- =====================================
-         FORMULÁRIO DE CONSULTA
-    ====================================== -->
+            <label for="cep">
+                CEP
+            </label>
 
-    <form id="formConsulta">
+            <input
+                id="cep"
+                type="text"
+                inputmode="numeric"
+                maxlength="9"
+                placeholder="01001-000"
+                autocomplete="postal-code"
+                required
+            >
 
-        <label for="cep">
-            CEP
-        </label>
+            <label for="cidade">
+                Cidade
+            </label>
 
-        <input
-            id="cep"
-            type="text"
-            inputmode="numeric"
-            maxlength="9"
-            placeholder="01001-000"
-            autocomplete="postal-code"
-            required
-        >
+            <input
+                id="cidade"
+                type="text"
+                placeholder="São Paulo"
+                autocomplete="address-level2"
+                required
+            >
 
+            <button type="submit">
+                Consultar Endereço
+            </button>
 
-        <label for="cidade">
-            Cidade
-        </label>
+        </form>
 
-        <input
-            id="cidade"
-            type="text"
-            placeholder="São Paulo"
-            autocomplete="address-level2"
-            required
-        >
+        <!-- Mensagens de validação -->
+        <p
+            id="mensagem"
+            role="status"
+            aria-live="polite">
+        </p>
 
-
-        <button type="submit">
-            Consultar Endereço
+        <!-- Instalação do aplicativo -->
+        <button
+            id="btnInstalar"
+            type="button">
+            Instalar APK
         </button>
 
-    </form>
+    </main>
 
-
-    <!-- =====================================
-         MENSAGEM DE STATUS / ERRO
-    ====================================== -->
-
-    <p
-        id="mensagem"
-        role="status"
-        aria-live="polite">
-    </p>
-
-
-    <!-- =====================================
-         JAVASCRIPT PRINCIPAL
-    ====================================== -->
 
     <script src="index.js"></script>
 
 
-    <!-- =====================================
-         SERVICE WORKER
-    ====================================== -->
-
     <script>
 
+        // Registra o Service Worker
         if ("serviceWorker" in navigator) {
 
             window.addEventListener("load", () => {
 
                 navigator.serviceWorker
                     .register("./sw.js")
-
                     .then(() => {
 
                         console.log(
-                            "Service Worker registrado com sucesso!"
+                            "Service Worker registrado."
                         );
 
                     })
-
                     .catch((erro) => {
 
                         console.error(

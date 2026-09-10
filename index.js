@@ -1,6 +1,6 @@
-// ============================================
-// CONSULTA DE CEP
-// ============================================
+// ==========================================
+// CONSULTA DE ENDEREÇO
+// ==========================================
 
 const form = document.getElementById("formConsulta");
 const mensagem = document.getElementById("mensagem");
@@ -22,7 +22,7 @@ form.addEventListener("submit", (event) => {
 
     mensagem.textContent = "";
 
-    // Verifica se o CEP possui o formato correto
+    // Validação do CEP
     if (!/^\d{5}-?\d{3}$/.test(entrada)) {
 
         mensagem.textContent =
@@ -31,7 +31,7 @@ form.addEventListener("submit", (event) => {
         return;
     }
 
-    // Verifica se a cidade foi preenchida
+    // Validação da cidade
     if (!cidade) {
 
         mensagem.textContent =
@@ -40,10 +40,10 @@ form.addEventListener("submit", (event) => {
         return;
     }
 
-    // Remove o hífen do CEP
+    // Remove o hífen
     const cep = entrada.replace("-", "");
 
-    // Envia CEP e cidade para a página de resultado
+    // Envia os dados para resultado.html
     const parametros = new URLSearchParams({
         cep: cep,
         cidade: cidade
@@ -51,7 +51,9 @@ form.addEventListener("submit", (event) => {
 
     window.location.href =
         `resultado.html?${parametros.toString()}`;
+
 });
+
 
 // ==========================================
 // INSTALAÇÃO DO APLICATIVO
@@ -59,84 +61,56 @@ form.addEventListener("submit", (event) => {
 
 let instalacaoPendente = null;
 
-const btnInstalar = document.getElementById("btnInstalar");
+const btnInstalar =
+    document.getElementById("btnInstalar");
 
 
-// O navegador informa quando o PWA pode ser instalado
-window.addEventListener("beforeinstallprompt", (event) => {
+// O navegador informa quando o aplicativo
+// pode ser instalado
+window.addEventListener(
+    "beforeinstallprompt",
+    (event) => {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    instalacaoPendente = event;
+        instalacaoPendente = event;
 
-    console.log("Aplicativo pronto para instalação.");
-});
-
-
-// Botão "Instalar APK"
-btnInstalar.addEventListener("click", async () => {
-
-    // Se o navegador disponibilizou a instalação
-    if (instalacaoPendente) {
-
-        instalacaoPendente.prompt();
-
-        const resultado =
-            await instalacaoPendente.userChoice;
-
-        if (resultado.outcome === "accepted") {
-
-            console.log("Aplicativo instalado!");
-
-        } else {
-
-            console.log("Instalação cancelada.");
-        }
-
-        instalacaoPendente = null;
-
-        return;
+        console.log(
+            "LocalizaCEP pode ser instalado."
+        );
     }
+);
 
 
-    // Caso o navegador não disponibilize o prompt
-    alert(
-        "A instalação automática não está disponível neste navegador. " +
-        "No Chrome, procure a opção 'Instalar LocalizaCEP' no menu do navegador."
-    );
-});
-
-
-// Detecta quando o aplicativo foi instalado
-window.addEventListener("appinstalled", () => {
-
-    console.log("LocalizaCEP instalado com sucesso!");
-
-});
-
-// Quando o usuário clicar em "Instalar APK"
+// Clique no botão "Instalar APK"
 btnInstalar.addEventListener(
     "click",
     async () => {
 
+        // Se o navegador ainda não liberou
+        // a instalação automática
         if (!instalacaoPendente) {
+
+            alert(
+                "A instalação automática não está disponível. " +
+                "Abra o menu do navegador e escolha " +
+                "'Instalar LocalizaCEP'."
+            );
+
             return;
         }
 
         // Abre a janela de instalação
         instalacaoPendente.prompt();
 
-        // Descobre se o usuário aceitou
         const resultado =
             await instalacaoPendente.userChoice;
 
         if (resultado.outcome === "accepted") {
 
             console.log(
-                "Aplicativo instalado."
+                "LocalizaCEP instalado."
             );
-
-            btnInstalar.hidden = true;
 
         } else {
 
@@ -145,21 +119,19 @@ btnInstalar.addEventListener(
             );
         }
 
-        // Limpa o evento
         instalacaoPendente = null;
     }
 );
 
 
-// Detecta quando o aplicativo foi instalado
+// Detecta quando a instalação terminou
 window.addEventListener(
     "appinstalled",
     () => {
 
         console.log(
-            "LocalizaCEP foi instalado!"
+            "LocalizaCEP foi instalado com sucesso!"
         );
 
-        btnInstalar.hidden = true;
     }
 );
