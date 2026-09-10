@@ -53,36 +53,66 @@ form.addEventListener("submit", (event) => {
         `resultado.html?${parametros.toString()}`;
 });
 
-
-// ============================================
-// INSTALAÇÃO DO APLICATIVO (PWA)
-// ============================================
+// ==========================================
+// INSTALAÇÃO DO APLICATIVO
+// ==========================================
 
 let instalacaoPendente = null;
 
-const btnInstalar =
-    document.getElementById("btnInstalar");
+const btnInstalar = document.getElementById("btnInstalar");
 
 
-// O navegador avisa quando o aplicativo
-// pode ser instalado
-window.addEventListener(
-    "beforeinstallprompt",
-    (event) => {
+// O navegador informa quando o PWA pode ser instalado
+window.addEventListener("beforeinstallprompt", (event) => {
 
-        event.preventDefault();
+    event.preventDefault();
 
-        instalacaoPendente = event;
+    instalacaoPendente = event;
 
-        // Mostra o botão
-        btnInstalar.hidden = false;
+    console.log("Aplicativo pronto para instalação.");
+});
 
-        console.log(
-            "Aplicativo pronto para instalação."
-        );
+
+// Botão "Instalar APK"
+btnInstalar.addEventListener("click", async () => {
+
+    // Se o navegador disponibilizou a instalação
+    if (instalacaoPendente) {
+
+        instalacaoPendente.prompt();
+
+        const resultado =
+            await instalacaoPendente.userChoice;
+
+        if (resultado.outcome === "accepted") {
+
+            console.log("Aplicativo instalado!");
+
+        } else {
+
+            console.log("Instalação cancelada.");
+        }
+
+        instalacaoPendente = null;
+
+        return;
     }
-);
 
+
+    // Caso o navegador não disponibilize o prompt
+    alert(
+        "A instalação automática não está disponível neste navegador. " +
+        "No Chrome, procure a opção 'Instalar LocalizaCEP' no menu do navegador."
+    );
+});
+
+
+// Detecta quando o aplicativo foi instalado
+window.addEventListener("appinstalled", () => {
+
+    console.log("LocalizaCEP instalado com sucesso!");
+
+});
 
 // Quando o usuário clicar em "Instalar APK"
 btnInstalar.addEventListener(

@@ -20,23 +20,21 @@ body {
 }
 
 
-/* ==============================
-   CABEÇALHO
-============================== */
+/* PAINEL DO LOCALIZACEP */
 
-header {
+.cabecalho {
     width: 100%;
-    height: 70px;
+    background: #06B6D4;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
 
-    background: #ffffff;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding: 0 8%;
-
-    border-bottom: 1px solid #e5edf2;
+.cabecalho h1 {
+    margin: 0;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 header h1 {

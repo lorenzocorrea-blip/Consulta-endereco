@@ -3,26 +3,42 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#06B6D4">
+    <meta name="theme-color"
+          content="#06B6D4">
+
+    <link rel="stylesheet"
+          href="style.css">
+
+    <link rel="manifest"
+          href="manifest.json">
 
     <title>LocalizaCEP</title>
 </head>
 
 <body>
 
-    <!-- Botão para instalar o aplicativo -->
-    <button id="btnInstalar" hidden>
+    <!-- =====================================
+         BOTÃO DE INSTALAÇÃO
+    ====================================== -->
+
+    <button id="btnInstalar" type="button">
         Instalar APK
     </button>
 
+
+    <!-- =====================================
+         FORMULÁRIO DE CONSULTA
+    ====================================== -->
+
     <form id="formConsulta">
 
-        <label for="cep">CEP</label>
+        <label for="cep">
+            CEP
+        </label>
 
         <input
             id="cep"
@@ -30,17 +46,23 @@
             inputmode="numeric"
             maxlength="9"
             placeholder="01001-000"
+            autocomplete="postal-code"
             required
         >
 
-        <label for="cidade">Cidade</label>
+
+        <label for="cidade">
+            Cidade
+        </label>
 
         <input
             id="cidade"
             type="text"
             placeholder="São Paulo"
+            autocomplete="address-level2"
             required
         >
+
 
         <button type="submit">
             Consultar Endereço
@@ -48,29 +70,59 @@
 
     </form>
 
-    <p id="mensagem" role="status" aria-live="polite"></p>
+
+    <!-- =====================================
+         MENSAGEM DE STATUS / ERRO
+    ====================================== -->
+
+    <p
+        id="mensagem"
+        role="status"
+        aria-live="polite">
+    </p>
 
 
-    <!-- JavaScript principal -->
+    <!-- =====================================
+         JAVASCRIPT PRINCIPAL
+    ====================================== -->
+
     <script src="index.js"></script>
 
 
-    <!-- Service Worker -->
+    <!-- =====================================
+         SERVICE WORKER
+    ====================================== -->
+
     <script>
+
         if ("serviceWorker" in navigator) {
 
-            navigator.serviceWorker.register("./sw.js")
-                .then(() => {
-                    console.log("Service Worker registrado!");
-                })
-                .catch((erro) => {
-                    console.error(
-                        "Erro ao registrar Service Worker:",
-                        erro
-                    );
-                });
+            window.addEventListener("load", () => {
+
+                navigator.serviceWorker
+                    .register("./sw.js")
+
+                    .then(() => {
+
+                        console.log(
+                            "Service Worker registrado com sucesso!"
+                        );
+
+                    })
+
+                    .catch((erro) => {
+
+                        console.error(
+                            "Erro ao registrar Service Worker:",
+                            erro
+                        );
+
+                    });
+
+            });
 
         }
+
     </script>
 
 </body>
