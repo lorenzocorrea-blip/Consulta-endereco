@@ -20,21 +20,23 @@ body {
 }
 
 
-/* PAINEL DO LOCALIZACEP */
+/* ==============================
+   CABEÇALHO
+============================== */
 
-.cabecalho {
+header {
     width: 100%;
-    background: #06B6D4;
-    padding: 20px;
-    text-align: center;
-    box-sizing: border-box;
-}
+    height: 70px;
 
-.cabecalho h1 {
-    margin: 0;
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 8%;
+
+    border-bottom: 1px solid #e5edf2;
 }
 
 header h1 {
@@ -369,4 +371,12 @@ button:active {
 
         gap: 4px;
     }
+}
+#btnInstalar {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    margin: 20px auto;
+    padding: 12px 24px;
+    cursor: pointer;
 }
