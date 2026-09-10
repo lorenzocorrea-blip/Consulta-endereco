@@ -1,9 +1,44 @@
-// ==========================================
-// CONSULTA DE ENDEREÇO
-// ==========================================
-
 const form = document.getElementById("formConsulta");
 const mensagem = document.getElementById("mensagem");
+const btnInstalar = document.getElementById("btnInstalar");
+
+let instalacaoPendente = null;
+
+// Chrome disponibilizou a instalação
+window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+
+    instalacaoPendente = event;
+
+    btnInstalar.disabled = false;
+    btnInstalar.textContent = "Instalar aplicativo";
+
+    console.log("INSTALAÇÃO DISPONÍVEL");
+});
+
+// Clique no botão
+btnInstalar.addEventListener("click", async () => {
+
+    if (!instalacaoPendente) {
+        mensagem.textContent =
+            "O navegador ainda não disponibilizou a instalação.";
+        console.log("beforeinstallprompt NÃO foi disparado.");
+        return;
+    }
+
+    instalacaoPendente.prompt();
+
+    const escolha = await instalacaoPendente.userChoice;
+
+    console.log("Resultado:", escolha.outcome);
+
+    instalacaoPendente = null;
+});
+
+
+// ================================
+// CONSULTA DO CEP
+// ================================
 
 form.addEventListener("submit", (event) => {
 
@@ -22,28 +57,20 @@ form.addEventListener("submit", (event) => {
 
     mensagem.textContent = "";
 
-    // Validação do CEP
     if (!/^\d{5}-?\d{3}$/.test(entrada)) {
-
         mensagem.textContent =
             "Informe um CEP com 8 números.";
-
         return;
     }
 
-    // Validação da cidade
     if (!cidade) {
-
         mensagem.textContent =
             "Informe a cidade.";
-
         return;
     }
 
-    // Remove o hífen
     const cep = entrada.replace("-", "");
 
-    // Envia os dados para resultado.html
     const parametros = new URLSearchParams({
         cep: cep,
         cidade: cidade
@@ -51,87 +78,4 @@ form.addEventListener("submit", (event) => {
 
     window.location.href =
         `resultado.html?${parametros.toString()}`;
-
 });
-
-
-// ==========================================
-// INSTALAÇÃO DO APLICATIVO
-// ==========================================
-
-let instalacaoPendente = null;
-
-const btnInstalar =
-    document.getElementById("btnInstalar");
-
-
-// O navegador informa quando o aplicativo
-// pode ser instalado
-window.addEventListener(
-    "beforeinstallprompt",
-    (event) => {
-
-        event.preventDefault();
-
-        instalacaoPendente = event;
-
-        console.log(
-            "LocalizaCEP pode ser instalado."
-        );
-    }
-);
-
-
-// Clique no botão "Instalar APK"
-btnInstalar.addEventListener(
-    "click",
-    async () => {
-
-        // Se o navegador ainda não liberou
-        // a instalação automática
-        if (!instalacaoPendente) {
-
-            alert(
-                "A instalação automática não está disponível. " +
-                "Abra o menu do navegador e escolha " +
-                "'Instalar LocalizaCEP'."
-            );
-
-            return;
-        }
-
-        // Abre a janela de instalação
-        instalacaoPendente.prompt();
-
-        const resultado =
-            await instalacaoPendente.userChoice;
-
-        if (resultado.outcome === "accepted") {
-
-            console.log(
-                "LocalizaCEP instalado."
-            );
-
-        } else {
-
-            console.log(
-                "Instalação cancelada."
-            );
-        }
-
-        instalacaoPendente = null;
-    }
-);
-
-
-// Detecta quando a instalação terminou
-window.addEventListener(
-    "appinstalled",
-    () => {
-
-        console.log(
-            "LocalizaCEP foi instalado com sucesso!"
-        );
-
-    }
-);
