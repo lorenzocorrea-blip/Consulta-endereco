@@ -1,4 +1,4 @@
-const CACHE_NAME = "localizacep-v1";
+const CACHE_NAME = "localizacep-v2";
 
 const ARQUIVOS = [
     "./",
@@ -7,7 +7,9 @@ const ARQUIVOS = [
     "./style.css",
     "./index.js",
     "./resultado.js",
-    "./manifest.json"
+    "./manifest.json",
+    "./icons/images.png",
+    "./icons/2206535.png"
 ];
 
 // Instala o Service Worker
