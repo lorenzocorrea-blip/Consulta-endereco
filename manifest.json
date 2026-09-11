@@ -2,21 +2,21 @@
   "name": "LocalizaCEP",
   "short_name": "LocalizaCEP",
   "description": "Aplicativo para consultar endereços brasileiros por CEP.",
-  "start_url": "./",
-  "scope": "./",
+  "start_url": "https://lorenzocorrea-blip.github.io/Consulta-endereco/",
+  "scope": "https://lorenzocorrea-blip.github.io/Consulta-endereco/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#06B6D4",
   "icons": [
     {
-      "src": "./icons/images.png",
+      "src": "https://lorenzocorrea-blip.github.io/Consulta-endereco/icons/images.png",
       "sizes": "447x447",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./icons/2206535.png",
+      "src": "https://lorenzocorrea-blip.github.io/Consulta-endereco/icons/2206535.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
